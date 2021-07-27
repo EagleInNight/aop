@@ -10,7 +10,7 @@ class SomeClassTest {
 
     @Test
     @DisplayName("test aop")
-    void testAop() {
+    void testAop() throws InterruptedException {
         PojoClass pojoClass = new PojoClass()
                 .setId(1)
                 .setName("name")
@@ -19,7 +19,5 @@ class SomeClassTest {
         SomeClass someClass = new SomeClass();
 
         someClass.someMethodWithArgs(2, pojoClass);
-
-        System.out.println("testAop method called");
     }
 }

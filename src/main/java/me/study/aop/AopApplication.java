@@ -2,7 +2,7 @@ package me.study.aop;
 
 public class AopApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         PojoClass pojoClass = new PojoClass()
                 .setId(1)
                 .setName("name")

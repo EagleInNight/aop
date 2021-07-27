@@ -1,8 +1,0 @@
-<aspectj>
-    <aspects>
-        <aspect name="me.study.aop.MethodExecutionTimeAspect"/>
-        <weaver options="-verbose -showWeaveInfo">
-            <include within="me.study.aop.*"/>
-        </weaver>
-    </aspects>
-</aspectj>
