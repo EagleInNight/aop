@@ -14,22 +14,22 @@ import java.time.Instant;
 @Aspect
 public class MethodExecutionTimeAspect {
 
-    @Pointcut("@annotation(timed)")
-    public void callAt(Timed timed) {
+    @Pointcut("@annotation(logExecution) && execution(* *(..))")
+    public void callAt(LogExecution logExecution) {
     }
 
-    @Around(value = "callAt(timed)", argNames = "pjp,timed")
+    @Around(value = "callAt(logExecution)", argNames = "pjp,logExecution")
     public Object around(ProceedingJoinPoint pjp,
-                         Timed timed) throws Throwable {
+                         LogExecution logExecution) throws Throwable {
         Instant start = Instant.now();
 
         Object result = pjp.proceed();
 
         long spentTime = Duration.between(start, Instant.now()).toMillis();
-        if (spentTime > timed.measure()) {
+        if (spentTime > logExecution.timeLimit()) {
             StringBuilder params = new StringBuilder();
-            for (int i = 0; i < timed.paramNames().length; i++) {
-                params.append(" ").append(timed.paramNames()[i]).append(" ").append(pjp.getArgs()[i]);
+            for (int i = 0; i < logExecution.paramNames().length; i++) {
+                params.append(" ").append(logExecution.paramNames()[i]).append(" ").append(pjp.getArgs()[i]);
             }
             final String message = String.format(
                     "TIME TRACKING TOO LONG::: %s TOOK %s ms.%s",

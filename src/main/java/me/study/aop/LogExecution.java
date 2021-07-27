@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Timed {
+public @interface LogExecution {
 
-    long measure();
+    long timeLimit() default 0;
 
     String[] paramNames() default "";
 }
